@@ -18,4 +18,4 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
     + Fetterer, F., K. Knowles, W. Meier, M. Savoie, and A. K. Windnagel, 2017: updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi:http: //dx.doi.org/10.7265/N5K072F8. [[Documentation]](http://nsidc.org/data/g02135)
 
 ## Conferences
-+ [1] Thoman, R. and **Z.M. Labe**. 2017 − 18 Sea Ice in Western Alaska during the 2017 − 18 Season: Historical Context and Possible Drivers. *Western Alaska Interdisciplinary Science Conference and Forum*, Nome, AK (Mar 2018).
++ [1] Thoman, R. and **Z.M. Labe**., 2017 − 18 Sea Ice in Western Alaska during the 2017 − 18 Season: Historical Context and Possible Drivers. *Western Alaska Interdisciplinary Science Conference and Forum*, Nome, AK (Mar 2018).
