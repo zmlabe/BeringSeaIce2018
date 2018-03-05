@@ -44,9 +44,12 @@ minq = ice[np.where(rank==np.min(rank))[0]]
 yearq = np.where((years>=1979) & (years<=2017))[0]
 icebase = np.nanmean(ice[yearq],axis=0)
 
+yearqq = np.where((years>=1942) & (years<=1978))[0]
+oldicebase = np.nanmean(ice[yearqq],axis=0)
+
 ice18 = ice[-1]
 
-allbar = [icebase,maxq,minq,ice18]
+allbar = [oldicebase,icebase,maxq,minq,ice18]
 
 ###############################################################################
 ###############################################################################
@@ -89,20 +92,22 @@ plt.setp(ax.get_xticklines()[0:-1],visible=False)
 rects = ax.bar(ind,allbar,width,color='deepskyblue',alpha=1,zorder=1)
 
 rects[0].set_color('darkgrey')
+rects[1].set_color('darkgrey')
 rects[-1].set_color('r')
 
-labels = [r'1979-2017 Mean',r'Max (1976)',r'Min (2001)',r'2018']
+labels = [r'1942-1978 Mean',r'1979-2017 Mean',
+          r'Max (1976)',r'Min (2001)',r'2018']
 for i, rect in enumerate(rects):
-    if i == 0:
+    if any([i == 0,i == 31]):
         cc = 'darkgrey'
-    elif any([i == 1,i==2]):
+    elif any([i == 2,i == 3]):
         cc = 'deepskyblue'
-    elif i == 3:
+    elif i == 4:
         cc = 'r'
     height = rect.get_height()
     plt.text(rect.get_x() + rect.get_width()/2.0, height+0.01,
-             r'\textbf{%s}' % labels[i], ha='center', va='bottom',color=cc)
-
+             r'\textbf{%s}' % labels[i], ha='center', va='bottom',color=cc,
+             fontsize=8)
 
 plt.yticks(np.arange(0,2.5,0.2),list(map(str,np.arange(0,2.5,0.2))),
            color='darkgrey')

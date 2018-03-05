@@ -26,7 +26,7 @@ currentdy = str(now.day)
 currentyr = str(now.year)
 currenttime = currentmn + '_' + currentdy + '_' + currentyr
 titletime = currentmn + '/' + currentdy + '/' + currentyr
-print('\n' '----Plotting Bering SIC - %s----' % titletime)
+print('\n' '----Plotting Bering SIE - %s----' % titletime)
 
 ### Define years
 years = np.arange(1850,2018+1,1)
@@ -88,9 +88,6 @@ smoothed = sm.nonparametric.lowess(ext,np.arange(years.shape[0]))
 ###############################################################################
 ###############################################################################
 ### Plot figures
-fig = plt.figure()
-ax = plt.subplot(111)
-
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']}) 
 plt.rc('savefig',facecolor='black')
@@ -99,6 +96,9 @@ plt.rc('xtick',color='white')
 plt.rc('ytick',color='white')
 plt.rc('axes',labelcolor='white')
 plt.rc('axes',facecolor='black')
+
+fig = plt.figure()
+ax = plt.subplot(111)
 
 ### Adjust axes in time series plots 
 def adjust_spines(ax, spines):
@@ -139,8 +139,8 @@ plt.yticks(np.arange(0,2.5,0.2),list(map(str,np.arange(0,2.5,0.2))),
            color='darkgrey')
 plt.ylim([0.2,1])
 
-fig.suptitle(r'\textbf{BERING SEA ICE}',
-                       fontsize=29,color='darkgrey') 
+fig.suptitle(r'\textbf{FEBRUARY : BERING SEA ICE}',
+                       fontsize=22,color='darkgrey') 
 plt.ylabel(r'\textbf{Extent [$\bf{\times 10^{6}}$\ \textbf{km}$\bf{^2}$]}',
            fontsize=17,alpha=1,color='darkgrey',rotation=90) 
 
