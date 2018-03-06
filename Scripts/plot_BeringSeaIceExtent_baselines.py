@@ -26,7 +26,7 @@ currentdy = str(now.day)
 currentyr = str(now.year)
 currenttime = currentmn + '_' + currentdy + '_' + currentyr
 titletime = currentmn + '/' + currentdy + '/' + currentyr
-print('\n' '----Plotting Bering SIC - %s----' % titletime)
+print('\n' '----Plotting Bering SIE - %s----' % titletime)
 
 ### Define years
 years = np.arange(1850,2018+1,1)
