@@ -31,7 +31,7 @@ url = 'ftp://sidads.colorado.edu/DATASETS/NOAA/G02135/seaice_analysis/' \
         'Sea_Ice_Index_Regional_Daily_Data_G02135_v3.0.xlsx'
 
 ## Read file
-df_bering = pd.read_excel(url,sheetname='Bering-Extent-km^2',header=1,
+df_bering = pd.read_excel(url,sheet_name='Bering-Extent-km^2',header=1,
                             parse_cols=range(3,43,1))
 bering = df_bering.as_matrix()
 
@@ -42,13 +42,17 @@ print('\nCompleted: Read sea ice data!')
 ice17q = sie[:,-2]
 ice17q[np.where(np.isnan(ice17q))] = 5.66287231e-01
 
+### Missing data in 2018 (leap year)
+ice18q = sie[:,-1]
+ice18q[58] = (0.26670926+0.28116941)/2
+
 ### Create running mean
 N = 14
 
 meanq = np.nanmean(sie[:,:],axis=1)
 mean = np.convolve(np.append(meanq[-14:],meanq), np.ones((N,))/N, mode='valid') 
 ice17 = np.convolve(np.append(sie[-14:,-3],ice17q),np.ones((N,))/N,mode='valid') 
-ice18 = np.convolve(np.append(sie[-14:,-2],sie[:,-1]),np.ones((N,))/N,mode='valid')            
+ice18 = np.convolve(np.append(sie[-14:,-2],ice18q),np.ones((N,))/N,mode='valid')            
 
 ###########################################################################
 ###########################################################################
