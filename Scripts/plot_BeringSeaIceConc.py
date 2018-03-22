@@ -156,6 +156,10 @@ cbar.set_label(r'\textbf{SEA ICE CONCENTRATION [\%]}',fontsize=13,
                          color='darkgrey',labelpad=-36)
 cbar.ax.tick_params(axis='x', size=.001)
 
+ax1.annotate(r'\textbf{Historical Sea Ice Atlas, University of Alaska}',
+            xy=(0, 0),xytext=(0.51,0.07),xycoords='figure fraction',
+            fontsize=8,color='darkgrey',rotation=0,ha='center',va='center')
+
 ax1.annotate(r'\textbf{1979--2017}',
             xy=(0, 0),xytext=(0.5,1.02),xycoords='axes fraction',
             fontsize=25,color='darkgrey',rotation=0,ha='center',va='center')

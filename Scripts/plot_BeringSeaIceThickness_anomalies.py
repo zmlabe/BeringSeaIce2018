@@ -36,26 +36,26 @@ titletime = currentmn + '/' + currentdy + '/' + currentyr
 
 print('\n' '----Plot Sea Ice Thickness - %s----' % titletime) 
 
-### Use functions
-lats,lons,sit = CP.readPiomas(directorydata,years,0.01)
-meansit = CP.meanThick(1981,2010,years,sit)
-
-meandjf = np.nanmean(meansit[np.array([0,1,-1]),:,:],axis=0)
-
-print('Completed: Beginning plotting!')
-
-###########################################################################
-###########################################################################
-### Calculate djf and anomaly
-
-sitdec = sit[-2,-1,:,:]
-sitjan = sit[-1,0,:,:]
-sitfeb = sit[-1,1,:,:]
-
-sitdjf = (sitdec+sitjan+sitfeb)/3.
-anom = sitdjf - meandjf
-
-anomf = sit[-1,1,:,:]-meansit[1,:,:]
+#### Use functions
+#lats,lons,sit = CP.readPiomas(directorydata,years,0.01)
+#meansit = CP.meanThick(1981,2010,years,sit)
+#
+#meandjf = np.nanmean(meansit[np.array([0,1,-1]),:,:],axis=0)
+#
+#print('Completed: Beginning plotting!')
+#
+############################################################################
+############################################################################
+#### Calculate djf and anomaly
+#
+#sitdec = sit[-2,-1,:,:]
+#sitjan = sit[-1,0,:,:]
+#sitfeb = sit[-1,1,:,:]
+#
+#sitdjf = (sitdec+sitjan+sitfeb)/3.
+#anom = sitdjf - meandjf
+#
+#anomf = sit[-1,1,:,:]-meansit[1,:,:]
 
 ###############################################################################
 ###############################################################################
@@ -188,19 +188,22 @@ cs.set_cmap(cmap)
 
 m.fillcontinents(color='k')
 
-cbar_ax = fig.add_axes([0.312,0.07,0.4,0.03])                
+cbar_ax = fig.add_axes([0.312,0.09,0.4,0.02])                
 cbar = fig.colorbar(cs,cax=cbar_ax,orientation='horizontal',
                     extend='both',extendfrac=0.07,drawedges=False)
 barlim = np.arange(-2,3,1)
 cbar.set_ticks(barlim)
 cbar.set_ticklabels(list(map(str,barlim))) 
 cbar.set_label(r'\textbf{SEA ICE THICKNESS ANOMALIES [m]}',fontsize=15,
-                         color='darkgrey',labelpad=-38)
+                         color='darkgrey',labelpad=-33.5)
 cbar.ax.tick_params(axis='x', size=.001)
 
 ax.annotate(r'\textbf{FEBRUARY 2018}',
             xy=(0, 0),xytext=(0.5,1.06),xycoords='axes fraction',
             fontsize=25,color='darkgrey',rotation=0,ha='center',va='center')
+ax.annotate(r'\textbf{Data from PIOMAS}',
+            xy=(0, 0),xytext=(0.5,-0.2),xycoords='axes fraction',
+            fontsize=8,color='darkgrey',rotation=0,ha='center',va='center')
 
 fig.subplots_adjust(bottom=0.17)
 
