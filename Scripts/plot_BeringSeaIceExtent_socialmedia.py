@@ -84,7 +84,7 @@ plt.plot(years,ext,linewidth=3,color='deepskyblue',
          label=r'\textbf{Historical Sea Ice Atlas (*Alaskan Waters)}',
          zorder=2)
 plt.scatter(years[-1],ext[-1],s=45,color='r',zorder=3)
-plt.text(1995.2,0.233,r'\textbf{2018}',color='r',fontsize=17)
+plt.text(2022,0.237,r'\textbf{2018}',color='r',fontsize=17)
 
 xlabels = list(map(str,np.arange(1850,2021,25)))
 plt.xticks(np.arange(1850,2021,25),xlabels,rotation=0,color='darkgrey')
@@ -99,8 +99,8 @@ plt.title(r'\textbf{FEBRUARY : BERING SEA ICE}',
 plt.ylabel(r'\textbf{Extent [$\bf{\times 10^{6}}$\ \textbf{km}$\bf{^2}$]}',
            fontsize=17,alpha=1,color='darkgrey',rotation=90) 
 
-le = plt.legend(shadow=False,fontsize=8,loc='upper center',
-           bbox_to_anchor=(0.2867, 0.07),fancybox=True,frameon=False,ncol=1)
+le = plt.legend(shadow=False,fontsize=7.5,loc='upper center',
+           bbox_to_anchor=(0.258, 0.075),fancybox=True,frameon=False,ncol=1)
 for text in le.get_texts():
     text.set_color('darkgrey') 
     
@@ -112,7 +112,7 @@ plt.text(1967,1.06,r'*',
 
 plt.text(1850,0.082,r'\textbf{DATA:} University of Alaska, Fairbanks - http://seaiceatlas.snap.uaf.edu/',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
-plt.text(1850,0.065,r'\textbf{REFERENCE:} adapted from R. Thoman and Z. Labe [WAISC 2018]',
+plt.text(1850,0.063,r'\textbf{REFERENCE:} adapted from R. Thoman and Z. Labe [WAISC 2018]',
          fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
 plt.text(2020.9,0.082,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
          fontsize=5,rotation='horizontal',ha='right',color='darkgrey') 
