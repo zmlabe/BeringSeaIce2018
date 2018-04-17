@@ -1,6 +1,6 @@
 # File contains February SIE from historical
 #  ice atlas (University of Alaska) for years
-#  1850-2018 
+#  1850-2018 (x10^6 km^2)
 # 
 8.049050796881926928e-01
 7.311249216885483682e-01
