@@ -34,11 +34,12 @@ yearsat = np.arange(1979,2018+1,1)
 ### Retrieve data from NSIDC regional extent in Bering Sea
 beringold = np.genfromtxt(directorydata2 + 'BeringSeaIceExtent_NSIDC_' \
                        'regional_02_1979-2018.txt')
-bering = beringold/1e6
+bering = (beringold/1e6)*0.386102
 
 ### Retrieve data from NSIDC regional extent in Bering Sea
 ext = np.genfromtxt(directorydata2 + 'Bering_SIE_iceatlas_' \
                           '02_1850-2018.txt',skip_header=1)
+ext = (ext*0.386102)*1e6
 
 ###############################################################################
 ###############################################################################
@@ -84,27 +85,29 @@ plt.plot(years,ext,linewidth=3,color='deepskyblue',
          label=r'\textbf{Historical Sea Ice Atlas, University of Alaska}',
          zorder=2)
 plt.scatter(years[-1],ext[-1],s=45,color='r',zorder=3)
-plt.text(1997,0.237,r'\textbf{2018}',color='r',fontsize=15)
+plt.text(1997,70000,r'\textbf{2018}',color='r',fontsize=15)
 
 xlabels = list(map(str,np.arange(1850,2021,25)))
 plt.xticks(np.arange(1850,2021,25),xlabels,rotation=0,color='darkgrey')
 plt.xlim([1850,2020])
 
-plt.yticks(np.arange(0,2.5,0.2),list(map(str,np.arange(0,2.5,0.2))),
+plt.yticks(np.arange(0,500000,50000),list(map(str,np.arange(0,500000,50000))),
            color='darkgrey')
-plt.ylim([0.2,1])
+plt.ylim([0,400000])
 
 plt.title(r'\textbf{FEBRUARY : BERING SEA ICE}',
                        fontsize=26,color='darkgrey') 
-plt.ylabel(r'\textbf{Extent [$\bf{\times 10^{6}}$\ \textbf{km}$\bf{^2}$]}',
-           fontsize=17,alpha=1,color='darkgrey',rotation=90) 
+plt.ylabel(r'\textbf{Extent [\textbf{miles}$\bf{^2}$]}',
+           fontsize=13,alpha=1,color='darkgrey',rotation=90) 
 
 le = plt.legend(shadow=False,fontsize=8,loc='upper center',
-           bbox_to_anchor=(0.2867, 0.07),fancybox=True,frameon=False,ncol=1)
+           bbox_to_anchor=(0.295, 0.07),fancybox=True,frameon=False,ncol=1)
 for text in le.get_texts():
     text.set_color('darkgrey') 
     
 ax.yaxis.grid(zorder=1,color='w',alpha=0.35,linewidth=0.5)
+
+plt.subplots_adjust(left=0.15)
 
 plt.savefig(directoryfigure + 'February_1850-2018_BeringSeaIceExtent.png',
             dpi=600)

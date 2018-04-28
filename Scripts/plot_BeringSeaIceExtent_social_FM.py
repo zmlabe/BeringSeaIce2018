@@ -1,21 +1,20 @@
 """
-Script calculates sea ice extent in the Bering Sea from SIC fields
+Script plots February sea ice extent in the Bering Sea from 1850-2018. Plot
+is simplified for *social* media release 
 
 Notes
 -----
     Author : Zachary Labe
-    Date   : 4 March 2018
+    Date   : 28 March 2018
 """
 
 ### Import modules
 import numpy as np
-from netCDF4 import Dataset
 import matplotlib.pyplot as plt
 import datetime
-import statsmodels.api as sm
 
 ### Define directories
-directorydata = '/surtsey/zlabe/seaice/SIC_Alaska/' 
+directorydata = '/surtsey/zlabe/seaice_obs/SIC_Alaska/' 
 directorydata2 = '/home/zlabe/Documents/Projects/BeringSeaIce2018/Data/'
 directoryfigure = '/home/zlabe/Documents/Projects/BeringSeaIce2018/Figures/'
 
@@ -33,55 +32,18 @@ years = np.arange(1850,2018+1,1)
 yearsat = np.arange(1979,2018+1,1)
 
 ### Retrieve data from NSIDC regional extent in Bering Sea
-beringold = np.genfromtxt(directorydata2 + 'BeringSeaIce_NSIDC_Mar.txt')
+beringfeb = np.genfromtxt(directorydata2 + 'BeringSeaIce_NSIDC_Feb.txt')
+beringmar = np.genfromtxt(directorydata2 + 'BeringSeaIce_NSIDC_Mar.txt')
+
+beringold = (beringfeb + beringmar)/2
 bering = beringold/1e6
 
-### Retrieve data from historical sea ice atlas
-filename = directorydata + 'Alaska_SIC_Mar_1850-2018.nc'
-
-data = Dataset(filename)
-iceold = data.variables['sic'][:]
-lat1 = data.variables['lat'][:]    
-lon1 = data.variables['lon'][:]
-data.close()
-
-print('Completed: Data read!')
-
-### Meshgrid
-lon2,lat2 = np.meshgrid(lon1,lat1)
-
-### Bering Sea Ice Mask
-latq = lat2.copy()
-latq[np.where(latq>67)] = 0.
-latq[np.where(latq>0.)] = 1
-
-### Mask values below 20%
-ice = iceold * latq
-
-### Extent is a binary 0 or 1 for 15% SIC threshold
-thresh=15
-ice[np.where(ice<thresh)]=np.nan
-ice[np.where(ice>=thresh)]=1
-
-### Calculate sea ice extent
-ext = np.zeros((years.shape[0]))
-valyr = np.zeros((ice.shape))
-for yr in range(years.shape[0]):
-    for i in range(lat2.shape[0]):
-        for j in range(lon2.shape[1]):
-            if ice[yr,i,j] == 1.0:
-               ### Area of 0.25 grid cell [769.3 = (111.32/4) * (110.57/4)]
-               valyr[yr,i,j] = 769.3 * np.cos(np.radians(lat2[i,j]))
-    ext[yr] = np.nansum(valyr[yr,:,:])/1e6
-    
-### Save sea ice extent data (yearly) from sea ice atlas
-np.savetxt(directorydata2 + 'Bering_SIE_iceatlas_03_1850-2018.txt',ext,
-       delimiter=',',header='File contains March SIE from historical' \
-       '\n ice atlas (University of Alaska) for years' \
-       '\n 1850-2018 \n')
-
-### Calculate loess 
-smoothed = sm.nonparametric.lowess(ext,np.arange(years.shape[0]))
+### Retrieve data from NSIDC regional extent in Bering Sea
+feb = np.genfromtxt(directorydata2 + 'Bering_SIE_iceatlas_' \
+                          '02_1850-2018.txt',skip_header=1)
+mar = np.genfromtxt(directorydata2 + 'Bering_SIE_iceatlas_' \
+                          '03_1850-2018.txt',skip_header=1)
+ext = (feb + mar)/2
 
 ###############################################################################
 ###############################################################################
@@ -123,12 +85,11 @@ ax.spines['right'].set_color('none')
 ax.spines['bottom'].set_linewidth(2)
 ax.spines['left'].set_linewidth(2) 
 
-plt.plot(years,ext,linewidth=2,color='deepskyblue',
-         label=r'\textbf{Historical Sea Ice Atlas, University of Alaska}')
-plt.plot(yearsat,bering,linewidth=0.9,color='r',
-         label=r'\textbf{NSIDC Sea Ice Index, Version 3}')
-plt.plot(years,smoothed[:,1],linewidth=0.9,linestyle='--',
-         dashes=(1, 0.2),color='w',label=r'\textbf{Lowess Smoothing}')
+plt.plot(years,ext,linewidth=3,color='deepskyblue',
+         label=r'\textbf{Historical Sea Ice Atlas (*Alaskan Waters)}',
+         zorder=2)
+plt.scatter(years[-1],ext[-1],s=45,color='r',zorder=3)
+plt.text(2022,0.237,r'\textbf{2018}',color='r',fontsize=17)
 
 xlabels = list(map(str,np.arange(1850,2021,25)))
 plt.xticks(np.arange(1850,2021,25),xlabels,rotation=0,color='darkgrey')
@@ -138,17 +99,31 @@ plt.yticks(np.arange(0,2.5,0.2),list(map(str,np.arange(0,2.5,0.2))),
            color='darkgrey')
 plt.ylim([0.2,1])
 
-fig.suptitle(r'\textbf{MARCH : BERING SEA ICE}',
-                       fontsize=22,color='darkgrey') 
+plt.title(r'\textbf{FEB-MAR : BERING SEA ICE}',
+                       fontsize=26,color='darkgrey') 
 plt.ylabel(r'\textbf{Extent [$\bf{\times 10^{6}}$\ \textbf{km}$\bf{^2}$]}',
            fontsize=17,alpha=1,color='darkgrey',rotation=90) 
 
-le = plt.legend(shadow=False,fontsize=8,loc='upper center',
-           bbox_to_anchor=(0.285, 0.17),fancybox=True,frameon=False,ncol=1)
+le = plt.legend(shadow=False,fontsize=7.5,loc='upper center',
+           bbox_to_anchor=(0.258, 0.075),fancybox=True,frameon=False,ncol=1)
 for text in le.get_texts():
     text.set_color('darkgrey') 
+    
+ax.yaxis.grid(zorder=1,color='w',alpha=0.35,linewidth=0.5)
+plt.subplots_adjust(bottom=0.14)
 
-plt.savefig(directoryfigure + 'Bering_SIE_Atlas_March.png',dpi=300)
+plt.text(1967,1.06,r'*',
+         fontsize=15,rotation='horizontal',ha='left',color='darkgrey')
+
+plt.text(1850,0.082,r'\textbf{DATA:} University of Alaska, Fairbanks - http://seaiceatlas.snap.uaf.edu/',
+         fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
+plt.text(1850,0.063,r'\textbf{REFERENCE:} adapted from R. Thoman and Z. Labe [WAISC 2018]',
+         fontsize=5,rotation='horizontal',ha='left',color='darkgrey')
+plt.text(2020.9,0.082,r'\textbf{GRAPHIC:} Zachary Labe (@ZLabe)',
+         fontsize=5,rotation='horizontal',ha='right',color='darkgrey') 
+
+plt.savefig(directoryfigure + 'FEBMAR_1850-2018_BeringSeaIceExtent_socialmedia.png',
+            dpi=600)
 
 print('Completed: Figure plotted!')
 print('Completed: Script done!')

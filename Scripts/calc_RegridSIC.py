@@ -15,8 +15,8 @@ import datetime
 from scipy.interpolate import griddata as g
 
 ### Define directories
-directorydata = '/surtsey/zlabe/seaice_obs/SIC_Alaska/' 
-directorydata2 = '/surtsey/zlabe/seaice_obs/SIC_Alaska/sic2018/'
+directorydata = '/surtsey/zlabe/seaice/SIC_Alaska/' 
+directorydata2 = '/surtsey/zlabe/seaice/SIC_Alaska/sic2018/'
 directoryfigure = '/home/zlabe/Documents/Projects/BeringSeaIce2018/Figures/'
 
 ### Define time           
@@ -30,10 +30,10 @@ print('\n' '----Plotting Bering SIC - %s----' % titletime)
 
 ### Define years
 years = np.arange(1850,2017+1,1)
-days = np.arange(1,28+1,1)
+days = np.arange(1,31+1,1)
 
 ### Retrieve data from historical sea ice atlas (0.25)
-filename = directorydata + 'SNAP_SEA_ICE_ATLAS.nc'
+filename = directorydata + 'SNAP_SEA_ICE_ATLAS_MAR.nc'
 
 data = Dataset(filename)
 ice = data.variables['sic_con_pct'][0,:,:]
@@ -48,9 +48,9 @@ print('Completed: Data read!')
 lon2,lat2 = np.meshgrid(lon1,lat1)
 
 ### Read in 2018 data
-sic18 = np.empty((28,1120,760))
+sic18 = np.empty((31,849,849))
 for i in range(days.shape[0]):
-    filename = directorydata2 + 'feb_2018_%02d.nc' % days[i]
+    filename = directorydata2 + 'mar_2017_%s.nc' % days[i]
     data = Dataset(filename,'r')
     sic18[i,:,:] = data.variables['ice_conc'][:]
     latold2 = data.variables['lat'][:]
@@ -69,10 +69,10 @@ ak = g((np.ravel(latold2),np.ravel(lonold2)),sicmean.ravel(),(lat2,lon2),
 def netcdfAlaska(lats,lons,var,directory):
     print('\n>>> Using netcdfAlaska function!')
     
-    name = 'Alaska_SIC_Feb_2018.nc'
+    name = 'Alaska_SIC_Mar_2017.nc'
     filename = directory + name
     ncfile = Dataset(filename,'w',format='NETCDF4')
-    ncfile.description = 'February 2018 SIC from OSISAF ' \
+    ncfile.description = 'March 2017 SIC from OSISAF ' \
                         'interpolated on grid from' \
                         'Alaska Sea Ice Atlas'
     
@@ -87,7 +87,7 @@ def netcdfAlaska(lats,lons,var,directory):
     
     ### Units
     varns.units = '%'
-    ncfile.title = 'PIOMAS SIC on AK Sea Ice Atlas Grid'
+    ncfile.title = 'OSISAF SIC on AK Sea Ice Atlas Grid'
     ncfile.instituion = 'Dept. ESS at University of California, Irvine'
     ncfile.source = 'http://osisaf.met.no/p/ice/'
     ncfile.references = 'SSMIS (DMSP F18)]'

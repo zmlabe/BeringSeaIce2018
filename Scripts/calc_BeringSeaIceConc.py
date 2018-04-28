@@ -14,7 +14,7 @@ from netCDF4 import Dataset
 import datetime
 
 ### Define directories
-directorydata = '/surtsey/zlabe/seaice_obs/SIC_Alaska/' 
+directorydata = '/surtsey/zlabe/seaice/SIC_Alaska/' 
 directoryfigure = '/home/zlabe/Documents/Projects/BeringSeaIce2018/Figures/'
 
 ### Define time           
@@ -27,10 +27,10 @@ titletime = currentmn + '/' + currentdy + '/' + currentyr
 print('\n' '----Plotting Bering SIC - %s----' % titletime)
 
 ### Define years
-years = np.arange(1850,2017+1,1)
+years = np.arange(1850,2018+1,1)
 
 ### Retrieve data from historical sea ice atlas
-filename = directorydata + 'SNAP_SEA_ICE_ATLAS.nc'
+filename = directorydata + 'SNAP_SEA_ICE_ATLAS_MAR.nc'
 
 data = Dataset(filename)
 ice = data.variables['sic_con_pct'][:]
@@ -42,28 +42,35 @@ data.close()
 print('Completed: Data read!')
 
 ### Retrieve February data
-feb = ice[::12,:,:] # starts on 2/15/1850 to 2/15/2017
+feb = ice[::12,:,:] # starts on 3/15/1850 to 3/15/2017
 
 ### Meshgrid
 lon2,lat2 = np.meshgrid(lon1,lat1)
 
+### Read data for 2017
+filename2 = 'Alaska_SIC_Mar_2017.nc'
+data = Dataset(directorydata + filename2)
+ice17q = data.variables['sic'][:]
+ice17 = ice17q[np.newaxis,:,:]
+
 ### Read data for 2018
-filename2 = 'Alaska_SIC_Feb_2018.nc'
+filename2 = 'Alaska_SIC_Mar_2018.nc'
 data = Dataset(directorydata + filename2)
 ice18q = data.variables['sic'][:]
 ice18 = ice18q[np.newaxis,:,:]
 
 ### Append time series for 1850-2018
-iceall = np.append(feb,ice18,axis=0)
+febqq = np.append(feb,ice17,axis=0)
+iceall = np.append(febqq,ice18,axis=0)
 
 ### Create netCDF4 file for February data
 def netcdfAlaska(lats,lons,var,years,directory):
     print('\n>>> Using netcdfAlaska function!')
     
-    name = 'Alaska_SIC_Feb_1850-2018.nc'
+    name = 'Alaska_SIC_Mar_1850-2018.nc'
     filename = directory + name
     ncfile = Dataset(filename,'w',format='NETCDF4')
-    ncfile.description = 'February 1850-2018 SIC from ' \
+    ncfile.description = 'March 1850-2018 SIC from ' \
                         'Alaska Sea Ice Atlas'
     
     ### Dimensions
