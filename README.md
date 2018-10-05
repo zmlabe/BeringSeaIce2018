@@ -20,5 +20,5 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
     + Fetterer, F., K. Knowles, W. Meier, M. Savoie, and A. K. Windnagel, 2017: updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi:http: //dx.doi.org/10.7265/N5K072F8. [[Documentation]](http://nsidc.org/data/g02135)
 
 ## Conferences
-+ [2] Holman, A., R. Thoman, **Z.M. Labe**, and J.E. Walsh. Not Just Chance: Ocean and Atmospheric Factors in the Record Low Bering Sea Ince Winter of 2017-2018 and effects on health and safety, <em>2018 American Geophysical Union Annual Meeting</em>, Washington, DC (Dec 2018). [[Abstract]](https://agu.confex.com/agu/fm18/meetingapp.cgi/Paper/451295)
++ [2] Holman, A., R. Thoman, **Z.M. Labe**, and J.E. Walsh. Not Just Chance: Ocean and Atmospheric Factors in the Record Low Bering Sea Ice Winter of 2017-2018 and effects on health and safety, <em>2018 American Geophysical Union Annual Meeting</em>, Washington, DC (Dec 2018). [[Abstract]](https://agu.confex.com/agu/fm18/meetingapp.cgi/Paper/451295)
 + [1] Thoman, R. and **Z.M. Labe**., 2017 − 18 Sea Ice in Western Alaska during the 2017 − 18 Season: Historical Context and Possible Drivers. *Western Alaska Interdisciplinary Science Conference and Forum*, Nome, AK (Mar 2018).
