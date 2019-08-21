@@ -29,15 +29,15 @@ titletime = currentmn + '/' + currentdy + '/' + currentyr
 print('\n' '----Plotting Bering SIE - %s----' % titletime)
 
 ### Define years
-years = np.arange(1850,2018+1,1)
-yearsat = np.arange(1979,2018+1,1)
+years = np.arange(1850,2019+1,1)
+yearsat = np.arange(1979,2019+1,1)
 
-### Retrieve data from NSIDC regional extent in Bering Sea
-beringold = np.genfromtxt(directorydata2 + 'BeringSeaIce_NSIDC_Mar.txt')
+#### Retrieve data from NSIDC regional extent in Bering Sea
+beringold = np.genfromtxt(directorydata2 + 'BeringSeaIce_NSIDC_Feb.txt')
 bering = beringold/1e6
 
 ### Retrieve data from historical sea ice atlas
-filename = directorydata + 'Alaska_SIC_Mar_1850-2018.nc'
+filename = directorydata + 'Alaska_SIC_Feb_1850-2019.nc'
 
 data = Dataset(filename)
 iceold = data.variables['sic'][:]
@@ -75,10 +75,10 @@ for yr in range(years.shape[0]):
     ext[yr] = np.nansum(valyr[yr,:,:])/1e6
     
 ### Save sea ice extent data (yearly) from sea ice atlas
-np.savetxt(directorydata2 + 'Bering_SIE_iceatlas_03_1850-2018.txt',ext,
-       delimiter=',',header='File contains March SIE from historical' \
+np.savetxt(directorydata2 + 'Bering_SIE_iceatlas_02_1850-2019.txt',ext,
+       delimiter=',',header='File contains February SIE from historical' \
        '\n ice atlas (University of Alaska) for years' \
-       '\n 1850-2018 \n')
+       '\n 1850-2019 \n')
 
 ### Calculate loess 
 smoothed = sm.nonparametric.lowess(ext,np.arange(years.shape[0]))
@@ -124,7 +124,8 @@ ax.spines['bottom'].set_linewidth(2)
 ax.spines['left'].set_linewidth(2) 
 
 plt.plot(years,ext,linewidth=2,color='deepskyblue',
-         label=r'\textbf{Historical Sea Ice Atlas, University of Alaska}')
+         label=r'\textbf{Historical Sea Ice Atlas, University of Alaska}',
+         clip_on=False)
 plt.plot(yearsat,bering,linewidth=0.9,color='r',
          label=r'\textbf{NSIDC Sea Ice Index, Version 3}')
 plt.plot(years,smoothed[:,1],linewidth=0.9,linestyle='--',
@@ -134,11 +135,11 @@ xlabels = list(map(str,np.arange(1850,2021,25)))
 plt.xticks(np.arange(1850,2021,25),xlabels,rotation=0,color='darkgrey')
 plt.xlim([1850,2020])
 
-plt.yticks(np.arange(0,2.5,0.2),list(map(str,np.arange(0,2.5,0.2))),
+plt.yticks(np.arange(0,2.5,0.2),list(map(str,np.round(np.arange(0,2.5,0.2),2))),
            color='darkgrey')
 plt.ylim([0.2,1])
 
-fig.suptitle(r'\textbf{MARCH : BERING SEA ICE}',
+fig.suptitle(r'\textbf{FEBRUARY : BERING SEA ICE}',
                        fontsize=22,color='darkgrey') 
 plt.ylabel(r'\textbf{Extent [$\bf{\times 10^{6}}$\ \textbf{km}$\bf{^2}$]}',
            fontsize=17,alpha=1,color='darkgrey',rotation=90) 
@@ -148,7 +149,7 @@ le = plt.legend(shadow=False,fontsize=8,loc='upper center',
 for text in le.get_texts():
     text.set_color('darkgrey') 
 
-plt.savefig(directoryfigure + 'Bering_SIE_Atlas_March.png',dpi=300)
+plt.savefig(directoryfigure + 'Bering_SIE_Atlas_February_2019.png',dpi=300)
 
 print('Completed: Figure plotted!')
 print('Completed: Script done!')

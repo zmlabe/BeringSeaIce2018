@@ -4,7 +4,7 @@ Regrid SIC data from 10 km to 0.25 grid
 Notes
 -----
     Author : Zachary Labe
-    Date   : 2 March 2018
+    Date   : 24 March 2019
 """
 
 ### Import modules
@@ -16,8 +16,9 @@ from scipy.interpolate import griddata as g
 
 ### Define directories
 directorydata = '/surtsey/zlabe/seaice/SIC_Alaska/' 
-directorydata2 = '/surtsey/zlabe/seaice/SIC_Alaska/sic2019/'
-directoryfigure = '/home/zlabe/Documents/Projects/BeringSeaIce2018/Figures/'
+directorydata2 = '/surtsey/zlabe/seaice/SIC_Alaska/sic2018/'
+directorydata3 = '/home/zlabe/Documents/Projects/BeringSeaIce2018/BAMS/Data/'
+directoryfigure = '/home/zlabe/Documents/Projects/BeringSeaIce2018/BAMS/Figures/'
 
 ### Define time           
 now = datetime.datetime.now()
@@ -33,7 +34,7 @@ years = np.arange(1850,2018+1,1)
 days = np.arange(1,28+1,1)
 
 ### Retrieve data from historical sea ice atlas (0.25)
-filename = directorydata + 'SNAP_SEA_ICE_ATLAS_MAR.nc'
+filename = directorydata + 'SNAP_SEA_ICE_ATLAS_JAN.nc'
 
 data = Dataset(filename)
 ice = data.variables['sic_con_pct'][0,:,:]
@@ -47,13 +48,10 @@ print('Completed: Data read!')
 ### Meshgrid
 lon2,lat2 = np.meshgrid(lon1,lat1)
 
-### Read in 2018 data
+### Read in yearly data
 sic19 = np.empty((31,849,849))
 for i in range(days.shape[0]):
-    if days[i] < 10:
-        filename = directorydata2 + 'mar_2019_%s.nc' % days[i]
-    else:
-        filename = directorydata2 + 'mar_2019_%s.nc' % days[i]
+    filename = directorydata2 + 'jan_2018_%s.nc' % days[i]
     data = Dataset(filename,'r')
     sic19[i,:,:] = data.variables['ice_conc'][:]
     latold2 = data.variables['lat'][:]
@@ -72,10 +70,10 @@ ak = g((np.ravel(latold2),np.ravel(lonold2)),sicmean.ravel(),(lat2,lon2),
 def netcdfAlaska(lats,lons,var,directory):
     print('\n>>> Using netcdfAlaska function!')
     
-    name = 'Alaska_SIC_Mar_2019.nc'
+    name = 'Alaska_SIC_Jan_2018.nc'
     filename = directory + name
     ncfile = Dataset(filename,'w',format='NETCDF4')
-    ncfile.description = 'March 2019 SIC from OSISAF ' \
+    ncfile.description = 'January 2018 SIC from OSISAF ' \
                         'interpolated on grid from' \
                         'Alaska Sea Ice Atlas'
     
