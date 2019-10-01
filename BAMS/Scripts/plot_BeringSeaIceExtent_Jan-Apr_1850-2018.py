@@ -36,7 +36,7 @@ extsat = np.genfromtxt(directorydata + 'Bering_SIE_NSIDC_Jan-Apr' \
                        '_1979-2018.txt',skip_header=1)
 
 ### Retrieve data from sea ice atlas
-ext = np.genfromtxt(directorydata + 'Bering_SIE85_iceatlas_Jan-Apr' \
+ext = np.genfromtxt(directorydata + 'Bering_SIE_iceatlas_Jan-Apr' \
                        '_1850-2018.txt',skip_header=1)
 
 ###############################################################################
@@ -164,7 +164,7 @@ for text in le.get_texts():
 ax.yaxis.grid(zorder=1,color='darkgrey',alpha=1,linewidth=0.5)
 plt.subplots_adjust(bottom=0.14)
 
-plt.savefig(directoryfigure + 'BeringSIE85_Jan-Apr_1850-2018_iceatlas+nsidc.png',
+plt.savefig(directoryfigure + 'BeringSIE_Jan-Apr_1850-2018_iceatlas+nsidc.png',
             dpi=600)
 
 print('Completed: Figure plotted!')
