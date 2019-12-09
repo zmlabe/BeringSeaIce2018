@@ -18,6 +18,9 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
     + Zhang, J., and D. A. Rothrock, 2003: Modeling Global Sea Ice with a Thickness and Enthalpy Distribution Model in Generalized Curvilinear Coordinates. Monthly Weather Review, 131 (5), 845–861, doi:10.1175/1520-0493(2003)131<0845:MGSIWA>2.0.CO;2 [[Publication]](http://journals.ametsoc.org/doi/abs/10.1175/1520-0493%282003%29131%3C0845%3AMGSIWA%3E2.0.CO%3B2)
 + Sea Ice Index, Version 3 : [[DATA]](https://nsidc.org/data/seaice_index/)
     + Fetterer, F., K. Knowles, W. Meier, M. Savoie, and A. K. Windnagel, 2017: updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi:http: //dx.doi.org/10.7265/N5K072F8. [[Documentation]](http://nsidc.org/data/g02135)
+    
+## Publications
++ [1] Thoman, R.L., U. Bhatt, P. Bieniek, B. Brettschneider, M. Brubaker, S. Danielson, **Z.M. Labe**, R. Lader, W. Meier, G. Sheffield, and J. Walsh (2019): The record low Bering Sea ice extent in 2018: Context, impacts and an assessment of the role of anthropogenic climate change [in “Explaining Extreme Events of 2018 from a Climate Perspective”]. *Bull. Amer. Meteor. Soc*, DOI:10.1175/BAMS-D-19-0175.1 [[HTML]](http://ametsoc.net/eee/2018/10_Thoman0175.pdf) [[Press Release]](https://www.climate.gov/news-features/understanding-climate/new-research-examines-climate-change%E2%80%99s-role-2018-extreme-weather)
 
 ## Conferences
 + [2] Holman, A., R. Thoman, **Z.M. Labe**, and J.E. Walsh. Not Just Chance: Ocean and Atmospheric Factors in the Record Low Bering Sea Ice Winter of 2017-2018 and effects on health and safety, <em>2018 American Geophysical Union Annual Meeting</em>, Washington, DC (Dec 2018). [[Abstract]](https://agu.confex.com/agu/fm18/meetingapp.cgi/Paper/451295)
